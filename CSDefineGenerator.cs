@@ -27,6 +27,15 @@ namespace excel2json
             }
         }
 
+        const string CST_Suffix = "Config";
+
+        private string UpperFirstChar(string s)
+        {
+            char[] a = s.ToCharArray();
+            a[0] = char.ToUpper(a[0]);
+            return new string(a);
+        }
+
         public CSDefineGenerator(string excelName, ExcelLoader excel, string excludePrefix)
         {
             //-- 创建代码字符串
@@ -59,7 +68,9 @@ namespace excel2json
                 sb.Append(_exportSheet(sheet, excludePrefix, tabPrex));
             }
 
-            sb.Append(_exportTableClass(excel.Sheets, excelName, excludePrefix, tabPrex));
+            string className = UpperFirstChar(excelName);
+
+            sb.Append(_exportTableClass(excel.Sheets, className, excludePrefix, tabPrex));
 
             //end of namespace
             sb.Append('}');
@@ -83,7 +94,9 @@ namespace excel2json
                 if (excludePrefix.Length > 0 && sheetName.StartsWith(excludePrefix))
                     continue;
 
-                sb.AppendFormat("{1}\tpublic List<{0}> {0}List = new List<{0}>();", sheet.TableName, tabPrex);
+                string className = sheet.TableName + CST_Suffix;
+
+                sb.AppendFormat("{2}\tpublic List<{0}> {1} = new List<{0}>();", className, sheet.TableName, tabPrex);
                 sb.AppendLine();
             }
 
@@ -122,9 +135,11 @@ namespace excel2json
                 fieldList.Add(field);
             }
 
+            string className = sheet.TableName + CST_Suffix;
+
             // export as string
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("{1}public class {0}\r\n{1}{{", sheet.TableName, tabPrex);           
+            sb.AppendFormat("{1}public class {0}\r\n{1}{{", className, tabPrex);           
             sb.AppendLine();
 
             foreach (FieldDef field in fieldList)
