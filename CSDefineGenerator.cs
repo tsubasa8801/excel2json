@@ -83,7 +83,7 @@ namespace excel2json
                 if (excludePrefix.Length > 0 && sheetName.StartsWith(excludePrefix))
                     continue;
 
-                sb.AppendFormat("{1}\tpublic List<{0}> {0}List = new();", sheet.TableName, tabPrex);
+                sb.AppendFormat("{1}\tpublic List<{0}> {0}List = new List<{0}>();", sheet.TableName, tabPrex);
                 sb.AppendLine();
             }
 
