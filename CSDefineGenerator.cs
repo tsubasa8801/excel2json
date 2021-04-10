@@ -31,6 +31,7 @@ namespace excel2json
         {
             //-- 创建代码字符串
             StringBuilder sb = new StringBuilder();
+            //文件头注释
             sb.AppendLine("//");
             sb.AppendLine("// Auto Generated Code By excel2json");
             sb.AppendLine("// https://neil3d.gitee.io/coding/excel2json.html");
@@ -41,11 +42,28 @@ namespace excel2json
             sb.AppendLine();
             sb.AppendLine();
 
+            //添加using
+            sb.AppendLine("using System.Collections.Generic;");
+            sb.AppendLine();
+            sb.AppendLine();
+
+            //添加namespace
+            sb.AppendLine("namespace FZYX.GameWorld.Res\r\n{");
+   
+
+            string tabPrex = "\t";
+
             for (int i = 0; i < excel.Sheets.Count; i++)
             {
                 DataTable sheet = excel.Sheets[i];
-                sb.Append(_exportSheet(sheet, excludePrefix));
+                sb.Append(_exportSheet(sheet, excludePrefix, tabPrex));
             }
+
+            sb.Append(_exportTableClass(excel.Sheets, excelName, excludePrefix, tabPrex));
+
+            //end of namespace
+            sb.Append('}');
+            sb.AppendLine();
 
             sb.AppendLine();
             sb.AppendLine("// End of Auto Generated Code");
@@ -53,7 +71,29 @@ namespace excel2json
             mCode = sb.ToString();
         }
 
-        private string _exportSheet(DataTable sheet, string excludePrefix)
+        private string _exportTableClass(DataTableCollection dtc, string tableName, string excludePrefix, string tabPrex)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("{1}public class {0}\r\n{1}{{", tableName, tabPrex);
+            sb.AppendLine();
+
+            foreach (DataTable sheet in dtc)
+            {
+                string sheetName = sheet.TableName;
+                if (excludePrefix.Length > 0 && sheetName.StartsWith(excludePrefix))
+                    continue;
+
+                sb.AppendFormat("{1}\tpublic List<{0}> {0}List = new();", sheet.TableName, tabPrex);
+                sb.AppendLine();
+            }
+
+            sb.AppendFormat("{0}}}", tabPrex);
+            sb.AppendLine();
+            return sb.ToString();
+
+        }
+
+        private string _exportSheet(DataTable sheet, string excludePrefix, string tabPrex)
         {
             if (sheet.Columns.Count < 0 || sheet.Rows.Count < 2)
                 return "";
@@ -84,16 +124,16 @@ namespace excel2json
 
             // export as string
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("public class {0}\r\n{{", sheet.TableName);
+            sb.AppendFormat("{1}public class {0}\r\n{1}{{", sheet.TableName, tabPrex);           
             sb.AppendLine();
 
             foreach (FieldDef field in fieldList)
             {
-                sb.AppendFormat("\tpublic {0} {1}; // {2}", field.type, field.name, field.comment);
+                sb.AppendFormat("{3}\tpublic {0} {1}; // {2}", field.type, field.name, field.comment, tabPrex);
                 sb.AppendLine();
             }
 
-            sb.Append('}');
+            sb.AppendFormat("{0}}}", tabPrex);
             sb.AppendLine();
             sb.AppendLine();
             return sb.ToString();
