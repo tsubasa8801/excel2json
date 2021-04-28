@@ -136,6 +136,14 @@ namespace excel2json
                 if (excludePrefix.Length > 0 && columnName.StartsWith(excludePrefix))
                     continue;
 
+                DataRow typeRow = sheet.Rows[0];
+                string fieldType = typeRow[column].ToString();
+
+                if (string.IsNullOrEmpty(fieldType))
+                {
+                    continue;
+                }
+
                 object value = row[column];
 
                 // 尝试将单元格字符串转换成 Json Array 或者 Json Object

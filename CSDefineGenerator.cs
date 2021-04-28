@@ -127,9 +127,16 @@ namespace excel2json
                 if (excludePrefix.Length > 0 && columnName.StartsWith(excludePrefix))
                     continue;
 
+                string fieldType = typeRow[column].ToString();
+
+                if (string.IsNullOrEmpty(fieldType))
+                {
+                    continue;
+                }
+
                 FieldDef field;
                 field.name = column.ToString();
-                field.type = typeRow[column].ToString();
+                field.type = fieldType;
                 field.comment = commentRow[column].ToString();
 
                 fieldList.Add(field);
