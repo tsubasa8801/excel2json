@@ -56,6 +56,8 @@ namespace excel2json {
 
                 // Gets or sets a callback to obtain configuration options for a DataTable. 
                 ConfigureDataTable = (tableReader) => { return tableConfig; },
+
+                FilterSheet = (tableReader, index) => { return tableReader.Name.StartsWith("Sheet") == false; }
             };
         }
     }
