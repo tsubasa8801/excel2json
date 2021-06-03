@@ -164,16 +164,18 @@ namespace excel2json
                     }
                 }
 
-                if (value.GetType() == typeof(System.DBNull))
-                {
-                    value = getColumnDefault(sheet, column, firstDataRow);
-                }
-                else if (value.GetType() == typeof(double))
-                { // 去掉数值字段的“.0”
-                    double num = (double)value;
-                    if ((int)num == num)
-                        value = (int)num;
-                }
+                value = tryParseValue(value, fieldType);
+
+                //if (value.GetType() == typeof(System.DBNull))
+                //{
+                //    value = getColumnDefault(sheet, column, firstDataRow, fieldType);
+                //}
+                //else if (value.GetType() == typeof(double))
+                //{ // 去掉数值字段的“.0”
+                //    double num = (double)value;
+                //    if ((int)num == num)
+                //        value = (int)num;
+                //}
 
                 string fieldName = column.ToString();
                 // 表头自动转换成小写
@@ -190,10 +192,46 @@ namespace excel2json
             return rowData;
         }
 
+        private object tryParseValue(object value, string fieldType)
+        {            
+            try
+            {
+                switch (fieldType)
+                {
+                    case "int":
+                        return Convert.ToInt32(value);
+                    case "float":
+                        return (float)Convert.ToDouble(value);
+                    case "string":
+                        return Convert.ToString(value);
+                    default:
+                        //类型还没有添加
+                        break;
+                }
+            }
+            catch (Exception e)
+            {
+                switch (fieldType)
+                {
+                    case "int":
+                        return 0;
+                    case "float":
+                        return 0f;
+                    case "string":
+                        return "";
+                    default:
+                        //类型还没有添加
+                        break;
+                }
+            }
+
+            return "unkonw type:" + fieldType;
+        }
+
         /// <summary>
         /// 对于表格中的空值，找到一列中的非空值，并构造一个同类型的默认值
         /// </summary>
-        private object getColumnDefault(DataTable sheet, DataColumn column, int firstDataRow)
+        private object getColumnDefault(DataTable sheet, DataColumn column, int firstDataRow, string fieldType)
         {
             for (int i = firstDataRow; i < sheet.Rows.Count; i++)
             {
@@ -206,7 +244,21 @@ namespace excel2json
                     break;
                 }
             }
-            return "";
+
+            switch (fieldType)
+            {
+                case "int":
+                    return 0;
+                case "float":
+                    return 0f;
+                case "string":
+                    return "";
+                default:
+                    //类型还没有添加
+                    break;
+            }          
+
+            return "unkonw type:" + fieldType;
         }
 
         /// <summary>
