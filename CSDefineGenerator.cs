@@ -57,7 +57,7 @@ namespace excel2json
             sb.AppendLine();
 
             //添加namespace
-            sb.AppendLine("namespace FZYX.GameWorld.Res\r\n{");
+            sb.AppendLine("namespace Res.Table\r\n{");
    
 
             string tabPrex = "\t";
