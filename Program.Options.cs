@@ -18,6 +18,7 @@ namespace excel2json
                 this.Lowcase = false;
                 this.ExportArray = false;
                 this.ForceSheetName = false;
+                this.Namespace = string.Empty;
             }
 
             [Option('e', "excel", Required = true, HelpText = "input excel file path.")]
@@ -74,7 +75,7 @@ namespace excel2json
                 set;
             }
 
-            [Option('x', "exclude_prefix", Required = false, DefaultValue = "", HelpText = "exclude sheet or column start with specified prefix.")]
+            [Option('x', "exclude_prefix", Required = false, DefaultValue = "#", HelpText = "exclude sheet or column start with specified prefix.")]
             public string ExcludePrefix {
                 get;
                 set;
@@ -82,6 +83,12 @@ namespace excel2json
 
             [Option('l', "cell_json", Required = false, DefaultValue = false, HelpText = "convert json string in cell")]
             public bool CellJson {
+                get;
+                set;
+            }
+
+            [Option('n', "namespace", Required = false, DefaultValue = false, HelpText = "surround c# class with namespace")]
+            public string Namespace {
                 get;
                 set;
             }

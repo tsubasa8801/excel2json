@@ -55,6 +55,7 @@ namespace excel2json.GUI
             this.comboBoxHeader.SelectedIndex = 1;
             this.comboBoxDateFormat.SelectedIndex = 0;
             this.comboBoxSheetName.SelectedIndex = 1;
+            this.textBoxExculdePrefix.Text = "#";
 
             this.comboBoxEncoding.Items.Clear();
             this.comboBoxEncoding.Items.Add("utf8-nobom");
@@ -145,6 +146,7 @@ namespace excel2json.GUI
             options.ForceSheetName = this.comboBoxSheetName.SelectedIndex == 0;
             options.ExcludePrefix = this.textBoxExculdePrefix.Text;
             options.CellJson = this.checkBoxCellJson.Checked;
+            options.Namespace = this.textBoxNameSpace.Text;
 
             //-- start import
             this.backgroundWorker.RunWorkerAsync(options);

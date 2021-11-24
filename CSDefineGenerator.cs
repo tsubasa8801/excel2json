@@ -36,7 +36,7 @@ namespace excel2json
             return new string(a);
         }
 
-        public CSDefineGenerator(string excelName, ExcelLoader excel, string excludePrefix)
+        public CSDefineGenerator(string excelName, ExcelLoader excel, string excludePrefix, string namespaceStr)
         {
             //-- 创建代码字符串
             StringBuilder sb = new StringBuilder();
@@ -56,11 +56,15 @@ namespace excel2json
             sb.AppendLine();
             sb.AppendLine();
 
-            //添加namespace
-            sb.AppendLine("namespace Res.Table\r\n{");
-   
+            string tabPrex = string.Empty;
 
-            string tabPrex = "\t";
+            //添加namespace
+            if (string.IsNullOrEmpty(namespaceStr) == false)
+            {
+                sb.AppendLine("namespace " + namespaceStr + "\r\n{");
+                tabPrex = "\t";
+            }
+     
 
             for (int i = 0; i < excel.Sheets.Count; i++)
             {
@@ -72,9 +76,12 @@ namespace excel2json
 
             sb.Append(_exportTableClass(excel.Sheets, className, excludePrefix, tabPrex));
 
-            //end of namespace
-            sb.Append('}');
-            sb.AppendLine();
+            //end of namespace     
+            if (string.IsNullOrEmpty(namespaceStr) == false)
+            {
+                sb.Append('}');
+                sb.AppendLine();
+            }           
 
             sb.AppendLine();
             sb.AppendLine("// End of Auto Generated Code");

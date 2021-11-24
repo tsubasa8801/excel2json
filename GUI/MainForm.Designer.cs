@@ -30,6 +30,7 @@
             System.Windows.Forms.Label label5;
             System.Windows.Forms.Label label6;
             System.Windows.Forms.Label label7;
+            System.Windows.Forms.Label label8;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -62,6 +63,7 @@
             this.tabPageJSON = new System.Windows.Forms.TabPage();
             this.tabCSharp = new System.Windows.Forms.TabPage();
             this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.textBoxNameSpace = new System.Windows.Forms.TextBox();
             label2 = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             label4 = new System.Windows.Forms.Label();
@@ -69,6 +71,7 @@
             label5 = new System.Windows.Forms.Label();
             label6 = new System.Windows.Forms.Label();
             label7 = new System.Windows.Forms.Label();
+            label8 = new System.Windows.Forms.Label();
             this.statusStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -113,7 +116,7 @@
             // 
             // label3
             // 
-            label3.Location = new System.Drawing.Point(6, 101);
+            label3.Location = new System.Drawing.Point(3, 109);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(102, 12);
             label3.TabIndex = 4;
@@ -151,7 +154,7 @@
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLabel});
-            this.statusStrip.Location = new System.Drawing.Point(0, 540);
+            this.statusStrip.Location = new System.Drawing.Point(0, 585);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(784, 22);
             this.statusStrip.TabIndex = 2;
@@ -277,7 +280,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControlCode);
-            this.splitContainer1.Size = new System.Drawing.Size(784, 492);
+            this.splitContainer1.Size = new System.Drawing.Size(784, 537);
             this.splitContainer1.SplitterDistance = 288;
             this.splitContainer1.TabIndex = 5;
             // 
@@ -289,7 +292,7 @@
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(286, 490);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(286, 535);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // panelExcelDropBox
@@ -340,6 +343,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBoxNameSpace);
+            this.groupBox1.Controls.Add(label8);
             this.groupBox1.Controls.Add(this.checkBoxCellJson);
             this.groupBox1.Controls.Add(this.textBoxExculdePrefix);
             this.groupBox1.Controls.Add(label7);
@@ -360,7 +365,7 @@
             this.groupBox1.Location = new System.Drawing.Point(8, 200);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(8);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(270, 280);
+            this.groupBox1.Size = new System.Drawing.Size(270, 320);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Options";
@@ -368,7 +373,7 @@
             // checkBoxCellJson
             // 
             this.checkBoxCellJson.AutoSize = true;
-            this.checkBoxCellJson.Location = new System.Drawing.Point(54, 207);
+            this.checkBoxCellJson.Location = new System.Drawing.Point(54, 269);
             this.checkBoxCellJson.Name = "checkBoxCellJson";
             this.checkBoxCellJson.Size = new System.Drawing.Size(186, 16);
             this.checkBoxCellJson.TabIndex = 15;
@@ -411,7 +416,7 @@
             // 
             // btnReimport
             // 
-            this.btnReimport.Location = new System.Drawing.Point(85, 238);
+            this.btnReimport.Location = new System.Drawing.Point(82, 291);
             this.btnReimport.Name = "btnReimport";
             this.btnReimport.Size = new System.Drawing.Size(75, 23);
             this.btnReimport.TabIndex = 7;
@@ -482,7 +487,7 @@
             this.tabControlCode.Location = new System.Drawing.Point(0, 0);
             this.tabControlCode.Name = "tabControlCode";
             this.tabControlCode.SelectedIndex = 0;
-            this.tabControlCode.Size = new System.Drawing.Size(490, 490);
+            this.tabControlCode.Size = new System.Drawing.Size(490, 535);
             this.tabControlCode.TabIndex = 0;
             // 
             // tabPageJSON
@@ -490,7 +495,7 @@
             this.tabPageJSON.Location = new System.Drawing.Point(4, 22);
             this.tabPageJSON.Name = "tabPageJSON";
             this.tabPageJSON.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageJSON.Size = new System.Drawing.Size(482, 464);
+            this.tabPageJSON.Size = new System.Drawing.Size(482, 509);
             this.tabPageJSON.TabIndex = 0;
             this.tabPageJSON.Text = "JSON";
             this.tabPageJSON.UseVisualStyleBackColor = true;
@@ -510,11 +515,27 @@
             this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
             this.backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_RunWorkerCompleted);
             // 
+            // textBoxNameSpace
+            // 
+            this.textBoxNameSpace.Location = new System.Drawing.Point(114, 207);
+            this.textBoxNameSpace.Name = "textBoxNameSpace";
+            this.textBoxNameSpace.Size = new System.Drawing.Size(150, 21);
+            this.textBoxNameSpace.TabIndex = 17;
+            // 
+            // label8
+            // 
+            label8.Location = new System.Drawing.Point(6, 207);
+            label8.Name = "label8";
+            label8.Size = new System.Drawing.Size(102, 12);
+            label8.TabIndex = 16;
+            label8.Text = "Class NameSpace:";
+            label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 562);
+            this.ClientSize = new System.Drawing.Size(784, 607);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.statusStrip);
@@ -575,5 +596,6 @@
         private System.Windows.Forms.ToolStripButton btnSaveCSharp;
         private System.Windows.Forms.TextBox textBoxExculdePrefix;
         private System.Windows.Forms.CheckBox checkBoxCellJson;
+        private System.Windows.Forms.TextBox textBoxNameSpace;
     }
 }
